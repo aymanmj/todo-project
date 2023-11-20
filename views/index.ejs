@@ -13,6 +13,9 @@
         >
           todo app
         </h1>
+        <p class="flex justify-center items-center mb-4">
+          <i class="fa-solid fa-list-check fa-2xl"></i>
+        </p>
         <!-- <div class="flex flex-row justify-center items-center h-full"> -->
         <!-- <div class="flex flex-col col-start-10 xl:grid-cols-10"> -->
         <div class="card">
@@ -109,7 +112,8 @@
                 role="tabpanel"
                 class="tab-content bg-gray-200 border-base-300 rounded-box p-5"
               >
-                <% activetasks.forEach(activetask => { %>
+                <% if (activetasks.length > 0) { %> <%
+                activetasks.forEach(activetask => { %>
                 <div
                   id="formCtrl"
                   class="form-control flex-row justify-between items-center mb-2 bg-slate-300 rounded"
@@ -147,7 +151,13 @@
                   </div>
                 </div>
 
-                <% }) %>
+                <% }) %> <% } else { %>
+                <p
+                  class="mt-4 text-lg tracking-tight font-medium text-center text-gray-900 md:text-2xl dark:text-white"
+                >
+                  No Active Tasks Found!
+                </p>
+                <% } %>
               </div>
 
               <input
@@ -161,7 +171,8 @@
                 role="tabpanel"
                 class="tab-content bg-gray-200 border-base-300 rounded-box p-5"
               >
-                <% completedtasks.forEach(completedtask => { %>
+                <% if (completedtasks.length > 0) { %> <%
+                completedtasks.forEach(completedtask => { %>
                 <div
                   id="formCtrl"
                   class="form-control flex-row justify-between items-center mb-2 bg-slate-300 rounded"
@@ -185,7 +196,7 @@
                       href="/updatetodo/<%- completedtask.id %>"
                       data-tip="Done"
                       ><i
-                        class="fas fa-check fa-lg text-success me-3 items-end"
+                        class="fas fa-solid fa-check fa-lg text-success me-3 items-end"
                       ></i
                     ></a>
                     <a
@@ -193,13 +204,18 @@
                       href="/deletetodo/<%- completedtask.id %>"
                       data-tip="Delete task"
                       ><i
-                        class="fas fa-trash-alt fa-lg text-error me-3 items-end"
+                        class="fas fa-solid fa-trash-can fa-lg text-error me-3 items-end"
                       ></i
                     ></a>
                   </div>
                 </div>
-
-                <% }) %>
+                <% }) %> <% } else { %>
+                <p
+                  class="mt-4 text-lg tracking-tight font-medium text-center text-gray-900 md:text-2xl dark:text-white"
+                >
+                  No Completed Tasks Found!
+                </p>
+                <% } %>
               </div>
             </div>
           </div>

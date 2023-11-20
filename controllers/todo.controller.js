@@ -36,9 +36,8 @@ async function AddTask(req, res, next) {
   }
 }
 
-// update tasks
+// update tasks state
 async function updateTask(req, res, next) {
-  //still need to be modified and refined
   const id = parseInt(req.params.id);
   const taskCheck = await prisma.todo.findUnique({
     where: {
@@ -60,7 +59,7 @@ async function updateTask(req, res, next) {
   } else {
     try {
       await prisma.todo.update({
-        where: { id: parseInt(req.params.id) },
+        where: { id: id },
         data: {
           taskState: true,
         },
