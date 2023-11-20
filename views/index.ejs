@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./includes/head.ejs') %>
+  </head>
+  <body>
+    <section
+      class="w-full my-12 h-auto bg-white flex justify-center items-center"
+    >
+      <div class="w-[40%] bg-gray-200 rounded-2xl shadow-2xl">
+        <h1
+          class="uppercase text-2xl block font-bold py-6 text-gray-700 tracking-widest text-center"
+        >
+          todo app
+        </h1>
+        <!-- <div class="flex flex-row justify-center items-center h-full"> -->
+        <!-- <div class="flex flex-col col-start-10 xl:grid-cols-10"> -->
+        <div class="card">
+          <div class="card-body p-5">
+            <form
+              action="/todo"
+              method="post"
+              enctype="application/x-www-form-urlencoded"
+              class="flex justify-center items-center mb-4"
+            >
+              <div class="form-control w-full justify-center max-w-xs">
+                <input
+                  placeholder="Add New task..."
+                  type="text"
+                  name="taskTitle"
+                  id="taskTitle"
+                  class="input input-bordered border-t-2 input-success w-full max-w-xs"
+                  required
+                />
+                <!-- <label class="label" for="task-input">New task...</label> -->
+              </div>
+              <button
+                type="submit"
+                class="btn btn-success text-lg font-medium text-gray-200 ms-2"
+              >
+                Add
+              </button>
+            </form>
+
+            <!-- Tabs navs -->
+            <div role="tablist" class="tabs tabs-bordered text-lg font-medium">
+              <input
+                type="radio"
+                name="my_tabs_2"
+                role="tab"
+                class="tab"
+                aria-label="All"
+                checked
+              />
+              <div
+                id="listDiv"
+                role="tabpanel"
+                class="tab-content bg-gray-200 border-base-300 rounded-box p-5"
+              >
+                <% tasks.forEach(task => { %>
+                <div
+                  id="formCtrl"
+                  class="form-control flex-row justify-between items-center mb-2 bg-slate-300 rounded"
+                >
+                  <label id="chklabel" class="cursor-pointer label">
+                    <input type="checkbox" id="todoCheck" name="todoCheck"
+                    value="" class="checkbox checkbox-success" <%=
+                    task.taskState ? 'checked' : '' %> />
+                    <span
+                      id="checkSpan"
+                      class="label-text ml-2 text-lg font-medium"
+                    >
+                      <% if (task.taskState) { %>
+                      <s> <%- task.task %> </s>
+                      <% } else { %> <%= task.task %> <% } %>
+                    </span>
+                  </label>
+                  <div class="flex flex-row justify-end items-center">
+                    <a
+                      class="tooltip"
+                      href="/updatetodo/<%- task.id %>"
+                      data-tip="Done"
+                      ><i
+                        class="fas fa-check fa-lg text-success me-3 items-end"
+                      ></i
+                    ></a>
+                    <a
+                      class="tooltip"
+                      href="/deletetodo/<%- task.id %>"
+                      data-tip="Delete task"
+                      ><i
+                        class="fas fa-trash-alt fa-lg text-error me-3 items-end"
+                      ></i
+                    ></a>
+                  </div>
+                </div>
+
+                <% }) %>
+              </div>
+
+              <input
+                type="radio"
+                name="my_tabs_2"
+                role="tab"
+                class="tab"
+                aria-label="ACTIVE"
+              />
+              <div
+                role="tabpanel"
+                class="tab-content bg-gray-200 border-base-300 rounded-box p-5"
+              >
+                <% activetasks.forEach(activetask => { %>
+                <div
+                  id="formCtrl"
+                  class="form-control flex-row justify-between items-center mb-2 bg-slate-300 rounded"
+                >
+                  <label id="chklabel" class="cursor-pointer label">
+                    <input type="checkbox" id="todoCheck" name="todoCheck"
+                    value="" class="checkbox checkbox-success" <%=
+                    activetask.taskState ? 'checked' : '' %> />
+                    <span
+                      id="checkSpan"
+                      class="label-text ml-2 text-lg font-medium"
+                    >
+                      <% if (activetask.taskState) { %>
+                      <s> <%- activetask.task %> </s>
+                      <% } else { %> <%= activetask.task %> <% } %>
+                    </span>
+                  </label>
+                  <div class="flex flex-row justify-end items-center">
+                    <a
+                      class="tooltip"
+                      href="/updatetodo/<%- activetask.id %>"
+                      data-tip="Done"
+                      ><i
+                        class="fas fa-check fa-lg text-success me-3 items-end"
+                      ></i
+                    ></a>
+                    <a
+                      class="tooltip"
+                      href="/deletetodo/<%- activetask.id %>"
+                      data-tip="Delete task"
+                      ><i
+                        class="fas fa-trash-alt fa-lg text-error me-3 items-end"
+                      ></i
+                    ></a>
+                  </div>
+                </div>
+
+                <% }) %>
+              </div>
+
+              <input
+                type="radio"
+                name="my_tabs_2"
+                role="tab"
+                class="tab"
+                aria-label="COMPLETED"
+              />
+              <div
+                role="tabpanel"
+                class="tab-content bg-gray-200 border-base-300 rounded-box p-5"
+              >
+                <% completedtasks.forEach(completedtask => { %>
+                <div
+                  id="formCtrl"
+                  class="form-control flex-row justify-between items-center mb-2 bg-slate-300 rounded"
+                >
+                  <label id="chklabel" class="cursor-pointer label">
+                    <input type="checkbox" id="todoCheck" name="todoCheck"
+                    value="" class="checkbox checkbox-success" <%=
+                    completedtask.taskState ? 'checked' : '' %> />
+                    <span
+                      id="checkSpan"
+                      class="label-text ml-2 text-lg font-medium"
+                    >
+                      <% if (completedtask.taskState) { %>
+                      <s> <%- completedtask.task %> </s>
+                      <% } else { %> <%= completedtask.task %> <% } %>
+                    </span>
+                  </label>
+                  <div class="flex flex-row justify-end items-center">
+                    <a
+                      class="tooltip"
+                      href="/updatetodo/<%- completedtask.id %>"
+                      data-tip="Done"
+                      ><i
+                        class="fas fa-check fa-lg text-success me-3 items-end"
+                      ></i
+                    ></a>
+                    <a
+                      class="tooltip"
+                      href="/deletetodo/<%- completedtask.id %>"
+                      data-tip="Delete task"
+                      ><i
+                        class="fas fa-trash-alt fa-lg text-error me-3 items-end"
+                      ></i
+                    ></a>
+                  </div>
+                </div>
+
+                <% }) %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
+        <!-- </div> -->
+      </div>
+    </section>
+
+    <script src="checkToggle.js" defer></script>
+  </body>
+</html>
